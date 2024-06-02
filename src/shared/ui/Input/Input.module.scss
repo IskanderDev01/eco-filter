@@ -1,0 +1,14 @@
+.InputWrapper {
+    display: flex;
+}
+
+.input {
+    background: transparent;
+    border: solid 0.5px #ABBED1;
+    border-radius: 8px;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    color: var(--bs-dark);
+    background-color: var(--bs-white);
+}

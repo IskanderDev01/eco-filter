@@ -1,0 +1,47 @@
+@use 'src/app/styles/breakpoints';
+
+.Navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--navbar-height);
+    background-color: var(--bs-ocean-opacity);
+    box-shadow: 0px 0px 1px var(--bs-dark);
+    
+    .nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .data {
+            font-size: var(--bs-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input{
+            width: 500px;
+        }
+    }
+}
+
+@media (max-width: breakpoints.$md) {
+    .Navbar {
+        .nav {
+            .input {
+                width: 300px;
+            }
+        }
+    }
+}
+
+@media (max-width: breakpoints.$sm) {
+    .Navbar {
+        .nav {
+            .input {
+                display: none;
+            }
+        }
+    }
+}

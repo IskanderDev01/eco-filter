@@ -1,0 +1,24 @@
+:root {
+    --bs-dark: #282828;
+    --bs-white: #FFFFFF;
+    --bs-gray: #717171;
+    --bs-light-gray: #d6d6d6;
+    --bs-light-blue: rgb(50, 132, 255);
+    --bs-blue: rgb(0, 82, 206);
+    --bs-ocean: rgb(224, 236, 255);
+    --overlay-color: rgba(0 0 0 / 50%);
+    --skeleton-shadow: rgba(0 0 0 / 20%);
+    --bs-ocean-opacity: rgba(187, 229, 255, 80%);
+    --skeleton-color: #fff;
+
+    --font-family-main: Roboto, sans-serif;
+    --font-size-m: 16px;
+    --font-line-m: 24px;
+    --font-size-l: 24px;
+    --font-line-l: 32px;
+
+    // Размеры
+    --navbar-height: 60px;
+
+    --modal-z-index: 100;
+}

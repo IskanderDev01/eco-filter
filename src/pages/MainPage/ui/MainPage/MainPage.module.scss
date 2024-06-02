@@ -1,0 +1,14 @@
+@use 'src/app/styles/breakpoints';
+
+.loader {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: breakpoints.$xxl) {
+    .loader {
+        height: 30vh;
+    }
+}
