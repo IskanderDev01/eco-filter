@@ -1,8 +1,5 @@
 export interface User {
-    fullname: string,
-    date: string;
-    category: string;
+    name: string,
     address: string;
-    mobile: string
-    comment: string;
+    phone: string;
 }

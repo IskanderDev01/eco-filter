@@ -11,7 +11,7 @@ interface InputProps extends HTMLInputProps {
     className?: string;
     value?: string;
     id?: string;
-    onChange?: (value: string) => void;
+    onChange?: (value: any) => void;
 }
 
 export const Input = memo((props: InputProps) => {

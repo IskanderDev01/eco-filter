@@ -1,14 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAllClients } from '../services/fetchAllClients';
-import { Client } from '../types/client';
+import { Client, ClientData } from '../types/client';
 import { AllClientsSchema } from 'pages/MainPage';
 
 const initialState: AllClientsSchema = {
     clients: [],
     isLoading: true || false,
     error: undefined,
-    days: 'All',
+    days: 'all',
     search: '',
+    total: 0,
+    per_page: 5,
+    current_page: 1,
+    last_page: 1,
 };
 
 const allClientsSlice = createSlice({
@@ -21,6 +25,9 @@ const allClientsSlice = createSlice({
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
         },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.current_page = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -30,9 +37,13 @@ const allClientsSlice = createSlice({
             })
             .addCase(
                 fetchAllClients.fulfilled,
-                (state, action: PayloadAction<Client[]>) => {
+                (state, action) => {
                     state.isLoading = false;
-                    state.clients = action.payload;
+                    state.clients = action.payload.data;
+                    state.total = action.payload.total;
+                    state.per_page = action.payload.per_page;
+                    state.current_page = action.payload.current_page;
+                    state.last_page = action.payload.last_page;
                 },
             )
             .addCase(fetchAllClients.rejected, (state, action) => {

@@ -18,16 +18,12 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     getAddClientAddress,
-    getAddClientComment,
-    getAddClientFullname,
-    getAddClientMobile,
     getAddClientError,
-    getAddClientCategory,
+    getAddClientName,
+    getAddClientPhone,
 } from 'features/AddClient/model/selectors/addClientSelectors';
-import {
-    getAllClientsDays,
-    getAllClientsIsLoading,
-} from 'pages/MainPage/model/selectors/mainPageSelectors';
+import { getAllClientsIsLoading } from 'pages/MainPage/model/selectors/mainPageSelectors';
+import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients'
 
 export interface AddClientFormProps {
     className?: string;
@@ -41,31 +37,14 @@ const initialReducers: ReducersList = {
 const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
     const dispatch = useAppDispatch();
     const address = useSelector(getAddClientAddress);
-    const category = useSelector(getAddClientCategory);
-    const comment = useSelector(getAddClientComment);
-    const date = useSelector(getAllClientsDays);
-    const fullname = useSelector(getAddClientFullname);
-    const mobile = useSelector(getAddClientMobile);
+    const name = useSelector(getAddClientName);
+    const phone = useSelector(getAddClientPhone);
     const error = useSelector(getAddClientError);
     const isLoading = useSelector(getAllClientsIsLoading);
 
-    const onChangeFullname = useCallback(
+    const onChangeName = useCallback(
         (value: string) => {
-            dispatch(addClientActions.setFullname(value));
-        },
-        [dispatch],
-    );
-
-    const onChangeDate = useCallback(
-        (value: string) => {
-            dispatch(addClientActions.setDate(value));
-        },
-        [dispatch],
-    );
-
-    const onChangeCategory = useCallback(
-        (value: string) => {
-            dispatch(addClientActions.setCategory(value));
+            dispatch(addClientActions.setName(value));
         },
         [dispatch],
     );
@@ -76,34 +55,31 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
         },
         [dispatch],
     );
-    const onChangeMobile = useCallback(
+    const onChangePhone = useCallback(
         (value: string) => {
-            dispatch(addClientActions.setMobile(value));
-        },
-        [dispatch],
-    );
-    const onChangeComment = useCallback(
-        (value: string) => {
-            dispatch(addClientActions.setComment(value));
+            dispatch(addClientActions.setPhone(value));
         },
         [dispatch],
     );
 
     const onLoginClick = useCallback(async () => {
-        const result = await dispatch(
-            addClient({ address, category, comment, date, fullname, mobile }),
-        );
+        const result = await dispatch(addClient({ address, name, phone }));
         if (result.meta.requestStatus === 'fulfilled') {
             onClose();
+            dispatch(fetchAllClients())
         }
-    }, [onClose, dispatch, fullname, address, category, comment, date, mobile]);
+    }, [onClose, dispatch, name, address, phone]);
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <div className={classNames(cls.AddClientForm, {}, [className])}>
                 <div className={cls.title}>Добавить клиента</div>
                 <div className={cls.close} onClick={onClose}>
-                    <FontAwesomeIcon size="xl" icon={faX} className={cls.closeIcon}/>
+                    <FontAwesomeIcon
+                        size="xl"
+                        icon={faX}
+                        className={cls.closeIcon}
+                    />
                 </div>
                 {error && (
                     <div className={cls.error}>Вы ввели неверное данное</div>
@@ -115,25 +91,7 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                     type="text"
                     id="fullname"
                     className={cls.input}
-                    onChange={onChangeFullname}
-                />
-                <label htmlFor="date" className={cls.label}>
-                    Дата
-                </label>
-                <Input
-                    type="date"
-                    id="date"
-                    className={cls.input}
-                    onChange={onChangeDate}
-                />
-                <label htmlFor="category" className={cls.label}>
-                    Категория
-                </label>
-                <Input
-                    type="text"
-                    id="date"
-                    className={cls.input}
-                    onChange={onChangeCategory}
+                    onChange={onChangeName}
                 />
                 <label htmlFor="address" className={cls.label}>
                     Адрес
@@ -151,19 +109,8 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                     type="text"
                     id="mobile"
                     className={cls.input}
-                    onChange={onChangeMobile}
+                    onChange={onChangePhone}
                 />
-                <label htmlFor="comment" className={cls.label}>
-                    Комментарий
-                </label>
-                <Input
-                    value={comment}
-                    type="text"
-                    id="comment"
-                    className={cls.input}
-                    onChange={onChangeComment}
-                />
-
                 <Button
                     theme={ButtonTheme.BACKGROUND}
                     className={cls.loginBtn}

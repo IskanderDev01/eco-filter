@@ -1,15 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
-import axios from 'axios';
 import { User } from '../../types/user';
 
 interface AddClientProps {
-    fullname?: string;
-    date?: string;
-    category?: string;
+    name?: string;
     address?: string;
-    mobile?: string;
-    comment?: string;
+    phone?: string;
 }
 
 export const addClient = createAsyncThunk<
@@ -17,12 +13,9 @@ export const addClient = createAsyncThunk<
     AddClientProps,
     ThunkConfig<string>
 >('add/addClient', async (authData, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+    const { extra, rejectWithValue } = thunkApi;
     try {
-        const response = await axios.post<User>(
-            'https://flask-filters.vercel.app/',
-            authData,
-        );
+        const response = await extra.api.post('/user/create', authData)
         if (!response.data) {
             throw new Error();
         }

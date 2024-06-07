@@ -19,7 +19,13 @@
     border-color: var(--bs-blue);
     background: none;
 }
-
+.delete {
+    border:none;
+    outline: none;
+    background-color: var(--bs-danger);
+    color: var(--bs-white);
+    border-radius: 5px;
+}
 .background {
     border:none;
     outline: none;

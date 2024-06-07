@@ -13,25 +13,21 @@ export const MainNavFilter = memo((props: MainNavFilterProps) => {
     const dispatch = useAppDispatch();
     const { className } = props;
 
-    const fetchData = useCallback(() => {
+    const filterAll = useCallback(() => {
+        dispatch(allClientsSliceActions.setDays('all'))
         dispatch(fetchAllClients());
     }, [dispatch]);
-
-    const filterAll = useCallback(() => {
-        dispatch(allClientsSliceActions.setDays('All'));
-        fetchData();
-    }, [dispatch]);
     const filterToday = useCallback(() => {
-        dispatch(allClientsSliceActions.setDays('Today'));
-        fetchData();
+        dispatch(allClientsSliceActions.setDays('today'))
+        dispatch(fetchAllClients());
     }, [dispatch]);
     const filterTomorrow = useCallback(() => {
-        dispatch(allClientsSliceActions.setDays('Tomorrow'));
-        fetchData();
+        dispatch(allClientsSliceActions.setDays('tomarrow'))
+        dispatch(fetchAllClients());
     }, [dispatch]);
     const filterPast = useCallback(() => {
-        dispatch(allClientsSliceActions.setDays('Past'));
-        fetchData();
+        dispatch(allClientsSliceActions.setDays('expired'))
+        dispatch(fetchAllClients());
     }, [dispatch]);
 
     return (

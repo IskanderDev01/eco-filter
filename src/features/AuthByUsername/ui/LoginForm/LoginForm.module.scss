@@ -1,0 +1,55 @@
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    position: relative;
+    background-color: var(--bs-white);
+    padding: 20px;
+    border-radius: 5px;
+    
+    .title {
+        font-size: var(--font-size-l);
+        margin-bottom: 15px;
+    }
+
+    .close {
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+    }
+    
+    .error {
+        color: red;
+        margin-bottom: 10px;
+    }
+    .label {
+        font-size: var(--font-siz-x);
+    }
+
+    .flex {
+        display: flex;
+
+        div {
+            width: 100%;
+            padding: 0px 5px;
+            .input {
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+}
+
+.input {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.loginBtn {
+    width: 100%;
+    background-color: var(--bs-blue);
+    font-size: var(--font-siz-x);
+    color: var(--bs-white);
+    margin-top: 15px;
+    margin-left: auto;
+}

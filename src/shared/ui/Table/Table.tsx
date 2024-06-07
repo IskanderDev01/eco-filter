@@ -1,39 +1,40 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Table.module.scss';
-import { memo } from 'react';
-
-interface Item {
-    id: number;
-    fullname: string;
-    mobile: string;
-    address: string;
-    category: string;
-    comment: string;
-    date: string;
-    filter1: string;
-    filter2: string;
-}
+import { memo, useCallback } from 'react';
+import { Client } from 'pages/MainPage/model/types/client';
+import { useDispatch } from 'react-redux';
+import { userSliceActions } from 'pages/UserPage/models/slice/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { USERID } from 'shared/const/localstorage'
 
 interface TableProps {
     className?: string;
-    item: Item;
+    item: Client;
 }
 
 export const Table = memo((props: TableProps) => {
     const { className, item } = props;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const setUserId = useCallback(
+        (userId: number) => {
+            dispatch(userSliceActions.setUserId(userId));
+            console.log(userId);
+            navigate('/user');
+            localStorage.setItem(USERID, String(userId))
+        },
+        [dispatch],
+    );
 
     return (
         <div className={classNames(cls.Table, {}, [className])}>
-            <ul>
-                <li className={cls.name}>{item.fullname}</li>
-                <li className={cls.mobile}>{item.mobile}</li>
-                <li className={cls.address}>{item.address}</li>
-                <li className={cls.category}>{item.category}</li>
-                <li className={cls.comment}>{item.comment}</li>
-                <li className={cls.date}>{item.date}</li>
-                <li>{item.filter1}</li>
-                <li>{item.filter2}</li>
-            </ul>
+            <div className={cls.tbody} onClick={() => setUserId(item.id)}>
+                <div>{item.name}</div>
+                <div>{item.phone}</div>
+                <div>{item.address}</div>
+                <div>{item.created_at}</div>
+            </div>
         </div>
     );
 });

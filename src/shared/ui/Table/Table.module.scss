@@ -3,69 +3,18 @@
 .Table {
     color: var(--bs-gray);
     border-top: 1px solid var(--bs-light-gray);
-    background-color: var(--bs-white);
+    background-color: var(--bs-white-opacity);
     padding: 25px;
 }
 
-ul {
+.tbody {
     display: flex;
-    font-size: 14px;
+    flex-direction: row;
+    justify-content: start;
     align-items: center;
-}
 
-li, .name {
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.name {
-    justify-content: flex-start;
-}
-
-
-
-@media (max-width: breakpoints.$xxl) {
-    .Table {
-        padding: 15px;
-        ul {
-            li, .name {
-                width: 150px;
-            }
-        }
+    div {
+        width: 25%;
     }
 }
 
-@media (max-width: breakpoints.$xl) {
-    li{
-        width: 200px;
-    }
-    .comment {
-        display: none;
-    }
-}
-
-@media (max-width: breakpoints.$lg) {
-    .category {
-        display: none;
-    }
-}
-
-@media (max-width: breakpoints.$md) {
-    li {
-        width: 300px;
-    }
-    .date {
-        display: none;
-    }
-}
-
-@media (max-width: breakpoints.$sm) {
-    .mobile {
-        display: none;
-    }
-    .address {
-        display: none;
-    }
-}

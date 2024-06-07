@@ -7,12 +7,10 @@ import { AddClientModal } from 'features/AddClient';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { allClientsSliceActions } from 'pages/MainPage/model/slice/allClientsSlice';
 import { useSelector } from 'react-redux';
-import {
-    getAllClientsDays,
-    getAllClientsSearch,
-} from 'pages/MainPage/model/selectors/mainPageSelectors';
 import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
 import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients';
+import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
+import { getAllClientsSearch } from 'pages/MainPage/model/selectors/mainPageSelectors'
 
 interface NavbarProps {
     className?: string;
@@ -32,7 +30,7 @@ export const Navbar = (props: NavbarProps) => {
         dispatch(fetchAllClients());
     }, [dispatch]);
 
-    const debounceFetchData = useDebounce(fetchData, 500);
+    const debounceFetchData = useDebounce(fetchData, 300);
 
     const onChangeSearch = useCallback(
         (search: string) => {
@@ -50,21 +48,41 @@ export const Navbar = (props: NavbarProps) => {
         setIsAuthModal(true);
     }, []);
 
+    const onLogout = () => {
+        localStorage.removeItem(USER_LOCALSTORAGE_KEY);
+        location.reload();
+    };
+
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
             <div className={classNames(cls.nav, {}, ['container'])}>
                 <div className={cls.data}>
                     {day}.{month}.{year} г.
                 </div>
-                <Input
-                    onChange={onChangeSearch}
-                    value={search}
-                    placeholder="Поиск..."
-                    className={cls.input}
-                />
-                <Button theme={ButtonTheme.BACKGROUND} onClick={onShowModal}>
-                    Добавить
-                </Button>
+                <div className={cls.inputBlock}>
+                    <Input
+                        onChange={onChangeSearch}
+                        value={search}
+                        placeholder="Поиск..."
+                        className={cls.input}
+                    />
+                </div>
+
+                <div className={cls.btn}>
+                    <Button
+                        theme={ButtonTheme.BACKGROUND}
+                        onClick={onLogout}
+                    >
+                        Выйти
+                    </Button>
+                    <Button
+                        theme={ButtonTheme.BACKGROUND}
+                        onClick={onShowModal}
+                    >
+                        Добавить клиента
+                    </Button>
+                </div>
+
                 {isAuthModal && (
                     <AddClientModal
                         isOpen={isAuthModal}

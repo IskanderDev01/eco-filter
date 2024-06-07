@@ -3,12 +3,9 @@ import { ClientSchema } from '../types/CLientSchema';
 import { addClient } from '../services/addClient/addClient';
 
 const initialState: ClientSchema = {
-    fullname: '',
-    date: '',
-    category: '',
+    name: '',
     address: '',
-    mobile: '',
-    comment: '',
+    phone: '',
     isLoading: false,
 };
 
@@ -16,20 +13,11 @@ export const addClientSlice = createSlice({
     name: 'addClient',
     initialState,
     reducers: {
-        setFullname: (state, action: PayloadAction<string>) => {
-            state.fullname = action.payload;
+        setName: (state, action: PayloadAction<string>) => {
+            state.name = action.payload;
         },
-        setCategory: (state, action: PayloadAction<string>) => {
-            state.category = action.payload;
-        },
-        setComment: (state, action: PayloadAction<string>) => {
-            state.comment = action.payload;
-        },
-        setDate: (state, action: PayloadAction<string>) => {
-            state.date = action.payload;
-        },
-        setMobile: (state, action: PayloadAction<string>) => {
-            state.mobile = action.payload;
+        setPhone: (state, action: PayloadAction<string>) => {
+            state.phone = action.payload;
         },
         setAddress: (state, action: PayloadAction<string>) => {
             state.address = action.payload;
