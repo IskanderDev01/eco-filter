@@ -18,6 +18,7 @@ import {
     getAllClientsCurrentPage,
     getAllClientsLastPage,
     getAllClientsDays,
+    getAllClientsSortBy,
 } from 'pages/MainPage/model/selectors/mainPageSelectors';
 import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients';
 import { useSelector } from 'react-redux';
@@ -39,6 +40,8 @@ const MainPage = memo((props: MainPageProps) => {
     const isLoading = useSelector(getAllClientsIsLoading);
     const current_page = useSelector(getAllClientsCurrentPage);
     const last_page = useSelector(getAllClientsLastPage);
+    const sortBy = useSelector(getAllClientsSortBy);
+
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -48,6 +51,7 @@ const MainPage = memo((props: MainPageProps) => {
     const handlePageChange = (page: number) => {
         dispatch(allClientsSliceActions.setPage(page));
     };
+
     const renderPagination = () => {
         const pages = [];
         for (let i = 1; i <= last_page; i++) {
@@ -70,14 +74,54 @@ const MainPage = memo((props: MainPageProps) => {
             <div className={classNames(cls.MainPage, {}, [className])}>
                 <MainNavFilter />
                 <TableHeader />
-                {/* <Sortirovka /> */}
                 {isLoading ? (
                     <Loader className={cls.loader} />
+                ) : clients && sortBy === 'top' ? (
+                    clients
+                        ?.filter((item) =>
+                            item.filters.some(
+                                (filter) => filter.status === 'expired',
+                            ),
+                        )
+                        .sort((a: any, b: any) => {
+                            const aRemainingDays = a.filters.find(
+                                (filter: any) => filter.status === 'expired',
+                            ).remaining_days;
+                            const bRemainingDays = b.filters.find(
+                                (filter: any) => filter.status === 'expired',
+                            ).remaining_days;
+                            console.log(aRemainingDays);
+                            console.log(bRemainingDays);
+                            return aRemainingDays - bRemainingDays;
+                        })
+                        .map((item) => <Table item={item} key={item.id} />)
                 ) : (
-                    clients &&
-                    clients?.map((item) => <Table item={item} key={item.id}/>
-                    )
+                    clients
+                        ?.filter((item) =>
+                            item.filters.some(
+                                (filter) => filter.status === 'expired',
+                            ),
+                        )
+                        .sort((a: any, b: any) => {
+                            const aRemainingDays = a.filters.find(
+                                (filter: any) => filter.status === 'expired',
+                            ).remaining_days;
+                            const bRemainingDays = b.filters.find(
+                                (filter: any) => filter.status === 'expired',
+                            ).remaining_days;
+                            return aRemainingDays + bRemainingDays;
+                        })
+                        .map((item) => <Table item={item} key={item.id} />)
                 )}
+                {isLoading ? '' :
+                clients &&
+                    clients
+                        .filter((item) =>
+                            !item.filters.some(
+                                (filter) => filter.status === 'expired',
+                            ),
+                        )
+                        .map((item) => <Table item={item} key={item.id} />)}
                 {isLoading || (
                     <div className={cls.pagination}>{renderPagination()}</div>
                 )}

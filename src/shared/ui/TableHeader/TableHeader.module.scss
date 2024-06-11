@@ -18,10 +18,6 @@
     }
 }
 
-.checkbox {
-    display: flex;
-    justify-content: flex-end;
-}
 .options {
     display: flex;
     justify-content: flex-end;
@@ -35,4 +31,8 @@
     span {
         margin-right: 5px;
     }
+}
+.comment {
+    display: flex;
+    justify-content: center;
 }

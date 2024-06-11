@@ -137,7 +137,7 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                     type="text"
                     id="filter"
                     className={cls.input}
-                    placeholder='месяц фильтра 2, 4'
+                    placeholder='1 категория: 2 4, 2 категория: 5 или 6'
                     onChange={onChangeMonthFilter}
                 />
                 <Button

@@ -32,8 +32,14 @@
     color: var(--bs-gray);
 }
 .changed_at {
-    span {
-        display: block;
+    padding-right: 5px;
+    .flex {
+        padding: 5px 0px;
+    }
+    .margin_top {
+        margin-top: 15px;
+    }
+    div {
         width: 100%;
     }
 }
@@ -50,20 +56,31 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    
-}
+    flex-direction: column;
 
-.checkbox {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .margin_top {
+        margin-top: 5px;
+    }
 }
 
 .options {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
+    flex-direction: column;
+    .column {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
     button {
         padding: 5px 8px;
     }
@@ -93,6 +110,7 @@
 .confirmationCheck2 {
     position: absolute;
     background-color: var(--bs-white);
+    top: 35%;
     right: 3%;
     z-index: 10;
     font-size: 12px;
@@ -113,13 +131,14 @@
     }
 }
 .confirmationCheck1 {
-    right: 4%;
+    right: 6%;
 }
 
 .deleteUserOpen {
     position: absolute;
     background-color: var(--bs-white);
-    right: 15%;
+    top: 65%;
+    right: 6%;
     z-index: 10;
     font-size: 12px;
     display: flex;
@@ -140,12 +159,7 @@
 }
 
 .comment {
-
-    textarea {
-        padding-left: 5px;
-        padding-top: 5px;
-        font-size: 12px;
-        border: none;
-        outline: none;
-    }
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
 }

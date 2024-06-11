@@ -1,4 +1,4 @@
-import { Client } from './client'
+import { Client } from './client';
 
 export interface AllClientsSchema {
     isLoading?: boolean;
@@ -6,8 +6,9 @@ export interface AllClientsSchema {
     days: string;
     clients: Client[];
     search: string;
-    total: number,
-    per_page: number,
-    current_page: number,
-    last_page: number,
+    total: number;
+    sortBy: string;
+    per_page: number;
+    current_page: number;
+    last_page: number;
 }

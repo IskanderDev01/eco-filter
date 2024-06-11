@@ -8,6 +8,7 @@ const initialState: AllClientsSchema = {
     error: undefined,
     days: '',
     search: '',
+    sortBy: 'top',
     total: 0,
     per_page: 5,
     current_page: 1,
@@ -27,6 +28,9 @@ const allClientsSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.current_page = action.payload;
         },
+        setSortBy: (state, action: PayloadAction<string>) => {
+            state.sortBy = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder

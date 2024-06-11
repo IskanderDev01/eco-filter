@@ -45,10 +45,9 @@ export const Table = memo((props: TableProps) => {
     const [checkOpen2, setCheckIsOpen2] = useState(false);
     const [deleteUserOpen, setDeleteUserOpen] = useState(false);
     const [isUpdateClientModal, setIsUpdateClientModal] = useState(false);
-    const [userId, setUserId] = useState<number | undefined>(undefined);
+    const [userId, setUserId] = useState<number>(0);
     const formData = useSelector(getUserFormData);
-    const now1 = new Date(item?.filters[0]?.changed_at)
-    const now2 = new Date(item?.filters[1]?.changed_at)
+    console.log(userId)
     
     const formattedDate = useMemo(() => {
         const date = new Date(item?.created_at);
@@ -86,15 +85,15 @@ export const Table = memo((props: TableProps) => {
         setUserId(id);
         setDeleteUserOpen(true);
     }, []);
+
     const onClosedeleteUserModal = useCallback(() => {
         setDeleteUserOpen(false);
     }, []);
+
     const deleteUserConfirm = () => {
-        if (userId) {
-            dispatch(deleteClient(userId));
-            dispatch(fetchAllClients());
-            setDeleteUserOpen(false);
-        }
+        dispatch(deleteClient(userId));
+        dispatch(fetchAllClients());
+        setDeleteUserOpen(false);
     };
 
     const onShowUpdateClientModal = useCallback(
@@ -141,26 +140,22 @@ export const Table = memo((props: TableProps) => {
                 <div className={cls.changed_at}>
                     {
                         days === 'today' || days === 'tomorrow' || days === 'expired'
-                        ? <span>
-                            {item?.filters[0]?.expiration_date + ' мес - ' + formatDate(item?.filters[0]?.changed_at)}
-                        </span> 
+                        ? <div className={cls.flex}>
+                            {item?.filters[0]?.expiration_date + ' мес-'+ formatDate(item?.filters[0]?.changed_at)}
+                        </div> 
                         : item?.filters[1] === undefined
-                        ? <span>
-                        {item?.filters[0]?.expiration_date + ' мес - ' + formatDate(item?.filters[0]?.changed_at)}
-                    </span>
+                        ? <div className={cls.flex}>
+                            {item?.filters[0]?.expiration_date + ' мес-' + formatDate(item?.filters[0]?.changed_at)}
+                    </div>
                         : <>
-                            <span>{item?.filters[0]?.expiration_date + ' мес - ' + formatDate(item?.filters[0]?.changed_at)}</span>
-                            <span>{item?.filters[1]?.expiration_date + ' мес - ' + formatDate(item?.filters[1]?.changed_at)}</span>
+                                <div className={cls.flex}>
+                                    {item?.filters[0]?.expiration_date + ' мес-' + formatDate(item?.filters[0]?.changed_at)}
+                                </div>
+                                <div className={cls.flex}>
+                                    {item?.filters[1]?.expiration_date + ' мес-' + formatDate(item?.filters[1]?.changed_at)}
+                                </div>
                         </>
                     }
-                </div>
-                <div className={cls.comment}>
-                    <textarea
-                        cols={14}
-                        rows={3}
-                        onChange={() => onShowUpdateClientModal(item?.id)}
-                        value={item?.description ?? 'нету комментария'}
-                    ></textarea>
                 </div>
                 {
                     days === 'today' || days === 'tomorrow' 
@@ -169,47 +164,35 @@ export const Table = memo((props: TableProps) => {
                     ? <div  className={cls.pastDays}>
                         {
                             item?.filters[0]?.status === 'expired'
-                            ? item?.filters[0]?.expiration_date + '-мес '
+                            ? 'тип ' + item?.filters[0]?.expiration_date + 'мес - '
                             + item?.filters[0]?.remaining_days + ' д'
                             : ''
                         }
                     </div>
                     : <div  className={cls.pastDays}>
-                        <span>
+                        <div>
                         {
                             item?.filters[0]?.status === 'expired'
-                            ? item?.filters[0]?.expiration_date + '-мес '
+                            ? 'тип ' + item?.filters[0]?.expiration_date + 'мес - '
                             + item?.filters[0]?.remaining_days + ' д'
                             : ''
                         }
-                        </span>
-                        <span>
+                        </div>
+                        <div className={cls.margin_top}>
                         {
                             item?.filters[1]?.status === 'expired'
-                            ? item?.filters[1]?.expiration_date + '-мес '
+                            ? 'тип ' + item?.filters[1]?.expiration_date + 'мес - '
                             + item?.filters[1]?.remaining_days + ' д'
                             : ''
                         }
-                        </span>
+                        </div>
                     </div>
                 }
-                <div className={cls.options}>
-                    <Button
-                        theme={ButtonTheme.DELETE}
-                        onClick={() => onShowdeleteUserModal(item?.id)}
-                    >
-                        <FontAwesomeIcon icon={faUser} size="sm" />
-                        <FontAwesomeIcon icon={faTrash} size="sm" />
-                    </Button>
-                    <Button
-                        theme={ButtonTheme.BACKGROUND}
-                        className={cls.margin_left}
-                        onClick={() => onShowUpdateClientModal(item?.id)}
-                    >
-                        <FontAwesomeIcon icon={faPencil} size="sm" />
-                    </Button>
+                <div className={cls.comment}>
+                    {item?.description ?? 'нету комментария'}
                 </div>
-                <div className={cls.checkbox}>
+                <div className={cls.options}>
+                    <div className={cls.column}>
                     {
                         item?.filters[0]?.status !== 'not_expired'
                         ? <>
@@ -238,6 +221,24 @@ export const Table = memo((props: TableProps) => {
                             </>  
                         : ''
                     }
+                    </div>
+                    <div className={cls.column}>
+                    <Button
+                        theme={ButtonTheme.DELETE}
+                        onClick={() => onShowdeleteUserModal(item?.id)}
+                    >
+                        <FontAwesomeIcon icon={faUser} size="sm" />
+                        <FontAwesomeIcon icon={faTrash} size="sm" />
+                    </Button>
+                    <Button
+                        theme={ButtonTheme.BACKGROUND}
+                        className={cls.margin_left}
+                        onClick={() => onShowUpdateClientModal(item?.id)}
+                    >
+                        <FontAwesomeIcon icon={faPencil} size="sm" />
+                    </Button>
+                    </div>
+                    
                 </div>
             </div>
             {checkOpen1 && (
