@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Input } from 'shared/ui/Input/Input';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import cls from './AddClientForm.module.scss';
@@ -19,11 +19,13 @@ import {
 import {
     getAddClientAddress,
     getAddClientError,
+    getAddClientFilter,
+    getAddClientIsLoading,
+    getAddClientMonth,
     getAddClientName,
     getAddClientPhone,
 } from 'features/AddClient/model/selectors/addClientSelectors';
-import { getAllClientsIsLoading } from 'pages/MainPage/model/selectors/mainPageSelectors';
-import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients'
+import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients';
 
 export interface AddClientFormProps {
     className?: string;
@@ -40,7 +42,9 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
     const name = useSelector(getAddClientName);
     const phone = useSelector(getAddClientPhone);
     const error = useSelector(getAddClientError);
-    const isLoading = useSelector(getAllClientsIsLoading);
+    const isLoading = useSelector(getAddClientIsLoading);
+    const category_id = useSelector(getAddClientFilter);
+    const expiration_date = useSelector(getAddClientMonth)
 
     const onChangeName = useCallback(
         (value: string) => {
@@ -48,7 +52,6 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
         },
         [dispatch],
     );
-
     const onChangeAddress = useCallback(
         (value: string) => {
             dispatch(addClientActions.setAddress(value));
@@ -62,13 +65,22 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
         [dispatch],
     );
 
+    const onChangeMonthFilter = useCallback(
+        (value: string) => {
+            dispatch(addClientActions.setMonthFilter(value))
+        },
+        [dispatch],
+    );
+
     const onLoginClick = useCallback(async () => {
-        const result = await dispatch(addClient({ address, name, phone }));
+        const result = await dispatch(
+            addClient({ address, name, phone, category_id, expiration_date }),
+        );
         if (result.meta.requestStatus === 'fulfilled') {
             onClose();
-            dispatch(fetchAllClients())
+            dispatch(fetchAllClients());
         }
-    }, [onClose, dispatch, name, address, phone]);
+    }, [onClose, dispatch, name, address, phone, category_id, expiration_date]);
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
@@ -85,7 +97,7 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                     <div className={cls.error}>Вы ввели неверное данное</div>
                 )}
                 <label htmlFor="fullname" className={cls.label}>
-                    Полное имя
+                    Имя
                 </label>
                 <Input
                     type="text"
@@ -110,6 +122,23 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                     id="mobile"
                     className={cls.input}
                     onChange={onChangePhone}
+                />
+                <label htmlFor="filter" className={cls.label}>
+                    Фильтр
+                </label>
+                <select className={cls.select} onChange={e => dispatch(addClientActions.setFilter(Number(e.target.value)))} name="категория" id="filter">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+                <label htmlFor="filter" className={cls.label}>
+                    Месяц фильтра
+                </label>
+                <Input
+                    type="text"
+                    id="filter"
+                    className={cls.input}
+                    placeholder='месяц фильтра 2, 4'
+                    onChange={onChangeMonthFilter}
                 />
                 <Button
                     theme={ButtonTheme.BACKGROUND}

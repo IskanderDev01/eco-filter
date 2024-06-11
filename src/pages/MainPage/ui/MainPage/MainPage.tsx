@@ -1,8 +1,5 @@
 import { Table } from 'shared/ui/Table/Table';
-import { memo, useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Loader } from 'shared/ui/Loader/Loader';
+import { memo, useEffect, useState } from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -12,19 +9,21 @@ import {
     allClientsSliceReducer,
 } from 'pages/MainPage/model/slice/allClientsSlice';
 import { classNames } from 'shared/lib/classNames/classNames';
-import {
-    getAllClients,
-    getAllClientsCurrentPage,
-    getAllClientsIsLoading,
-    getAllClientsLastPage,
-    getAllClientsPerPage,
-    getAllClientsTotal,
-} from 'pages/MainPage/model/selectors/mainPageSelectors';
 import { MainNavFilter } from '../MainNavFilters/MainNavFilter';
 import cls from './MainPage.module.scss';
-import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients';
 import { TableHeader } from 'shared/ui/TableHeader/TableHeader';
+import {
+    getAllClients,
+    getAllClientsIsLoading,
+    getAllClientsCurrentPage,
+    getAllClientsLastPage,
+    getAllClientsDays,
+} from 'pages/MainPage/model/selectors/mainPageSelectors';
+import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { Loader } from 'shared/ui/Loader/Loader';
 
 interface MainPageProps {
     className?: string;
@@ -40,8 +39,8 @@ const MainPage = memo((props: MainPageProps) => {
     const isLoading = useSelector(getAllClientsIsLoading);
     const current_page = useSelector(getAllClientsCurrentPage);
     const last_page = useSelector(getAllClientsLastPage);
-
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         dispatch(fetchAllClients());
     }, [dispatch, current_page]);
@@ -49,7 +48,6 @@ const MainPage = memo((props: MainPageProps) => {
     const handlePageChange = (page: number) => {
         dispatch(allClientsSliceActions.setPage(page));
     };
-
     const renderPagination = () => {
         const pages = [];
         for (let i = 1; i <= last_page; i++) {
@@ -72,11 +70,13 @@ const MainPage = memo((props: MainPageProps) => {
             <div className={classNames(cls.MainPage, {}, [className])}>
                 <MainNavFilter />
                 <TableHeader />
+                {/* <Sortirovka /> */}
                 {isLoading ? (
                     <Loader className={cls.loader} />
                 ) : (
                     clients &&
-                    clients.map((item) => <Table item={item} key={item.id} />)
+                    clients?.map((item) => <Table item={item} key={item.id}/>
+                    )
                 )}
                 {isLoading || (
                     <div className={cls.pagination}>{renderPagination()}</div>

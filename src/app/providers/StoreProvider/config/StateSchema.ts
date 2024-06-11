@@ -6,24 +6,16 @@ import {
     EnhancedStore,
 } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { UserShema } from 'entities/User/model/types/user'
 import { ClientSchema } from 'features/AddClient';
-import { CommentShema } from 'features/AddComment/model/types/CommentShema';
-import { FilterSchema } from 'features/AddFilter/model/types/FiltersSchema';
 import { LoginSchema } from 'features/AuthByUsername';
-import { UpdateClientShema } from 'features/UpdateClient/model/types/CLientSchema';
-import { UpdateCommentShema } from 'features/UpdateComment/model/types/UpdateCommentShema';
 import { AllClientsSchema } from 'pages/MainPage';
-import { UserSchema } from 'pages/UserPage/models/types/UserSchema';
 
 export interface StateSchema {
     addClientForm?: ClientSchema;
     allClients?: AllClientsSchema;
+    user?: UserShema;
     login?: LoginSchema;
-    comment?: CommentShema;
-    filter?: FilterSchema;
-    user?: UserSchema;
-    userUpdate?: UpdateClientShema;
-    updateComment?: UpdateCommentShema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

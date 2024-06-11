@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAllClients } from '../services/fetchAllClients';
-import { Client, ClientData } from '../types/client';
 import { AllClientsSchema } from 'pages/MainPage';
 
 const initialState: AllClientsSchema = {
     clients: [],
     isLoading: true || false,
     error: undefined,
-    days: 'all',
+    days: '',
     search: '',
     total: 0,
     per_page: 5,

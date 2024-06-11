@@ -6,6 +6,8 @@ const initialState: ClientSchema = {
     name: '',
     address: '',
     phone: '',
+    expiration_date: [],
+    category_id: 1,
     isLoading: false,
 };
 
@@ -22,6 +24,12 @@ export const addClientSlice = createSlice({
         setAddress: (state, action: PayloadAction<string>) => {
             state.address = action.payload;
         },
+        setFilter: (state, action: PayloadAction<number>) => {
+            state.category_id = action.payload;
+        },
+        setMonthFilter: (state, action: PayloadAction<string>) => {
+            state.expiration_date = action.payload.split(' ')
+        }
     },
     extraReducers: (builder) => {
         builder

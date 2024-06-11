@@ -16,22 +16,30 @@ export const fetchAllClients = createAsyncThunk<
     const search = getAllClientsSearch(getState());
     const days = getAllClientsDays(getState());
     const current_page = getAllClientsCurrentPage(getState());
-
+    
     try {
-        if (search) {
+        if (!days) {
             const response = await extra.api.get(
-                `/users/filters/${days}?search=${search}`,
+                `/users/filters/all?page=${current_page}&search=${search}&per_page=5`,
             );
-
             if (!response.data) {
                 throw new Error();
             }
             return response.data;
-        } else {
+        }
+        if(days === 'expired') {
             const response = await extra.api.get(
-                `/users/filters/${days}?page=${current_page}&per_page=5`,
+                `/users/filters/all?filter=${days}&search=${search}&page=${current_page}&per_page=5`,
             );
-
+            if (!response.data) {
+                throw new Error();
+            }
+            return response.data;
+        }
+        else {
+            const response = await extra.api.get(
+                `/users/filters/all?filter=${days}&search=${search}&page=${current_page}&per_page=5`,
+            );
             if (!response.data) {
                 throw new Error();
             }

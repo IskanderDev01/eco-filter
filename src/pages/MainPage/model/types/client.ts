@@ -1,28 +1,10 @@
-interface Filters {
+export interface Filters {
     id: number;
     ordered_at: string;
     changed_at: string;
-    expiration_date: string;
-}
-
-interface Comments {
-    id: number;
-    comment: string;
-    created_at: string;
-}
-
-interface Category {
-    id: number;
-    name: string;
-}
-
-interface Orders {
-    id: number;
-    category: Category;
-    address: string;
-    created_at: string;
-    comments: Comments[];
-    filters: Filters[];
+    status: string;
+    expiration_date: number;
+    remaining_days: number;
 }
 
 export interface Client {
@@ -31,7 +13,10 @@ export interface Client {
     phone: string;
     address: string;
     created_at: string;
-    orders: Orders[];
+    status: string;
+    description: string | null;
+    category: string;
+    filters: Filters[]
 }
 
 export interface ClientData {

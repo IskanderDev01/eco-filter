@@ -1,21 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
-import { User } from '../../types/user';
+import { Users } from '../../types/users'
+
 
 interface AddClientProps {
     name?: string;
     address?: string;
     phone?: string;
+    category_id?: number;
+    expiration_date?: Array<string>;
 }
 
 export const addClient = createAsyncThunk<
-    User,
+    Users,
     AddClientProps,
     ThunkConfig<string>
 >('add/addClient', async (authData, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
     try {
-        const response = await extra.api.post('/user/create', authData)
+        const response = await extra.api.post('/user/create', authData);
         if (!response.data) {
             throw new Error();
         }

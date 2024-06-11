@@ -1,6 +1,6 @@
 @use 'src/app/styles/breakpoints';
 
-.AddClientForm {
+.UserForm {
     font-family: Roboto, sans-serif;
     display: flex;
     flex-direction: column;
@@ -55,18 +55,9 @@
     margin-left: auto;
 }
 
-.select {
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    padding: 10px;
-    border: solid 0.5px #ABBED1;
-    outline: none;
-    color: var(--bs-dark);
-}
 
 @media (max-width: breakpoints.$xxl) {
-    .AddClientForm {
+    .UserForm {
         width: 400px;
 
         .label {
@@ -88,7 +79,7 @@
 }
 
 @media (max-width: breakpoints.$md) {
-    .AddClientForm {
+    .UserForm {
         width: 300px;
         .closeIcon {
             font-size: 16px;
@@ -97,7 +88,7 @@
 }
 
 @media (max-width: breakpoints.$sm) {
-    .AddClientForm {
+    .UserForm {
         width: 300px;
         .title {
             font-size: 18px;

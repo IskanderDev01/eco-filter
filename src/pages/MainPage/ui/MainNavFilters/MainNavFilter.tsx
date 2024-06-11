@@ -14,7 +14,7 @@ export const MainNavFilter = memo((props: MainNavFilterProps) => {
     const { className } = props;
 
     const filterAll = useCallback(() => {
-        dispatch(allClientsSliceActions.setDays('all'))
+        dispatch(allClientsSliceActions.setDays(''))
         dispatch(fetchAllClients());
     }, [dispatch]);
     const filterToday = useCallback(() => {
@@ -22,7 +22,7 @@ export const MainNavFilter = memo((props: MainNavFilterProps) => {
         dispatch(fetchAllClients());
     }, [dispatch]);
     const filterTomorrow = useCallback(() => {
-        dispatch(allClientsSliceActions.setDays('tomarrow'))
+        dispatch(allClientsSliceActions.setDays('tomorrow'))
         dispatch(fetchAllClients());
     }, [dispatch]);
     const filterPast = useCallback(() => {

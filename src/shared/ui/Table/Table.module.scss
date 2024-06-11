@@ -4,7 +4,8 @@
     color: var(--bs-gray);
     border-top: 1px solid var(--bs-light-gray);
     background-color: var(--bs-white-opacity);
-    padding: 25px;
+    padding: 15px;
+    position: relative;
 }
 
 .tbody {
@@ -18,3 +19,133 @@
     }
 }
 
+.expired {
+    background-color: var(--bs-danger-opacity);
+    color: var(--bs-white);
+}
+.be_changed {
+    background-color: var(--bs-yellow-opacity);
+    color: var(--bs-gray);
+}
+.not_expired {
+    background-color: var(--bs-green-opacity);
+    color: var(--bs-gray);
+}
+.changed_at {
+    span {
+        display: block;
+        width: 100%;
+    }
+}
+.input {
+    padding: 5px;
+    border: none;
+    width: 80px;
+    outline: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+.pastDays {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.checkbox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    button {
+        padding: 5px 8px;
+    }
+}
+
+.checkBtn {
+    background-color: var(--bs-teal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bs-white);
+    cursor: pointer;
+    transition: 100ms;
+    margin-left: 5px;
+    height: 30px;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: var(--bs-green);
+    }
+}
+
+.margin_left {
+    margin-left: 5px;
+}
+.confirmationCheck1,
+.confirmationCheck2 {
+    position: absolute;
+    background-color: var(--bs-white);
+    right: 3%;
+    z-index: 10;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+
+    .title {
+        color: var(--bs-dark);
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .confirm_btn {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.confirmationCheck1 {
+    right: 4%;
+}
+
+.deleteUserOpen {
+    position: absolute;
+    background-color: var(--bs-white);
+    right: 15%;
+    z-index: 10;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+
+    .title {
+        color: var(--bs-dark);
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .confirm_btn {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.comment {
+
+    textarea {
+        padding-left: 5px;
+        padding-top: 5px;
+        font-size: 12px;
+        border: none;
+        outline: none;
+    }
+}
