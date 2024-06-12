@@ -90,10 +90,12 @@ export const Table = memo((props: TableProps) => {
         setDeleteUserOpen(false);
     }, []);
 
-    const deleteUserConfirm = () => {
-        dispatch(deleteClient(userId));
-        dispatch(fetchAllClients());
-        setDeleteUserOpen(false);
+    const deleteUserConfirm = async () => {
+        const res = await dispatch(deleteClient(userId));
+        if(res.meta.requestStatus === 'fulfilled') {
+            dispatch(fetchAllClients());
+            setDeleteUserOpen(false);
+        }
     };
 
     const onShowUpdateClientModal = useCallback(
@@ -117,7 +119,7 @@ export const Table = memo((props: TableProps) => {
                     ? item?.filters[0]?.status
                     : item?.filters[0]?.status === 'expired' || item?.filters[1]?.status === 'expired'
                     ? 'expired'
-                    : item?.filters[0]?.status === 'be_changed' && item?.filters[1]?.status === 'be_changed'
+                    : item?.filters[0]?.status === 'be_changed' || item?.filters[1]?.status === 'be_changed'
                     ? 'be_changed'
                     : 'not_expired'
                 ],

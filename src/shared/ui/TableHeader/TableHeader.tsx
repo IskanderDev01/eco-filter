@@ -41,11 +41,12 @@ export const TableHeader = memo((props: TableHeaderProps) => {
                     days === 'today' || days === 'tomorrow'
                     ? ''
                     : <div className={cls.pastDays}>
-                    <span>прошло</span>
                     {arrow ? (
-                        <FontAwesomeIcon icon={faArrowDown} onClick={sortDown}/>
+                        <><span onClick={sortDown}>прошло </span><FontAwesomeIcon icon={faArrowDown} /></>
+                        
                     ) : (
-                        <FontAwesomeIcon icon={faArrowUp} onClick={sortTop}/>
+                        <><span onClick={sortTop}>прошло</span><FontAwesomeIcon icon={faArrowUp} /></>
+                        
                     )}
                 </div>
                 }

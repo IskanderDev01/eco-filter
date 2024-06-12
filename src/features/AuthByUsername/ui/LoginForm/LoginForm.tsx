@@ -54,7 +54,7 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <div className={classNames(cls.LoginForm, {}, [className])}>
-                <div className={cls.title}>Регистрация</div>
+                <div className={cls.title}>Вход</div>
                 {error && (
                     <div className={cls.error}>Вы ввели неверное данное</div>
                 )}
@@ -82,7 +82,7 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
                     onClick={onLoginClick}
                     disabled={isLoading}
                 >
-                    регистрация
+                    Вход
                 </Button>
             </div>
         </DynamicModuleLoader>

@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { Input } from 'shared/ui/Input/Input';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import cls from './AddClientForm.module.scss';
@@ -18,12 +18,12 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     getAddClientAddress,
-    getAddClientError,
     getAddClientFilter,
     getAddClientIsLoading,
     getAddClientMonth,
     getAddClientName,
     getAddClientPhone,
+    getValidateAddClientData,
 } from 'features/AddClient/model/selectors/addClientSelectors';
 import { fetchAllClients } from 'pages/MainPage/model/services/fetchAllClients';
 
@@ -41,10 +41,18 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
     const address = useSelector(getAddClientAddress);
     const name = useSelector(getAddClientName);
     const phone = useSelector(getAddClientPhone);
-    const error = useSelector(getAddClientError);
     const isLoading = useSelector(getAddClientIsLoading);
     const category_id = useSelector(getAddClientFilter);
     const expiration_date = useSelector(getAddClientMonth)
+    const validateErrors = useSelector(getValidateAddClientData)
+    const [errorWindow, setErrorWindow] = useState(false)
+
+    useEffect(() => {
+        if (expiration_date.some(item => item === '')) {
+            dispatch(addClientActions.setMonthFilter(expiration_date.filter(item => item !== '')))
+        }
+        
+    }, [expiration_date])
 
     const onChangeName = useCallback(
         (value: string) => {
@@ -67,11 +75,11 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
 
     const onChangeMonthFilter = useCallback(
         (value: string) => {
-            dispatch(addClientActions.setMonthFilter(value))
+            dispatch(addClientActions.setMonthFilter(value.split(' ')))
         },
         [dispatch],
     );
-
+    
     const onLoginClick = useCallback(async () => {
         const result = await dispatch(
             addClient({ address, name, phone, category_id, expiration_date }),
@@ -79,6 +87,7 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
         if (result.meta.requestStatus === 'fulfilled') {
             onClose();
             dispatch(fetchAllClients());
+            setErrorWindow(false)
         }
     }, [onClose, dispatch, name, address, phone, category_id, expiration_date]);
 
@@ -93,9 +102,9 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                         className={cls.closeIcon}
                     />
                 </div>
-                {error && (
-                    <div className={cls.error}>Вы ввели неверное данное</div>
-                )}
+                {errorWindow && validateErrors?.map( error => (
+                    <div className={cls.error}>{error}</div>
+                ))}
                 <label htmlFor="fullname" className={cls.label}>
                     Имя
                 </label>
