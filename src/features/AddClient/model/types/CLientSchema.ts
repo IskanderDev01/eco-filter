@@ -4,7 +4,7 @@ export enum ValidateAddClientError {
     INCORRECT_ADDRESS_DATA = 'не указали адрес',
     INCORRECT_ADDRESS = 'нельзя писать только цифры в адрес',
     INCORRECT_PHONE_DATA = 'не указали телефон',
-    INCORRECT_PHONE = 'в телефон нужно указать только цифры',
+    INCORRECT_PHONE = 'в телефон нужно указать только цифры без пробела',
     INCORRECT_PHONE1 = 'превышен количество цифр на номере',
     INCORRECT_EXPIRATIOIN_DATE_1 = 'если фильтр 1 то нужно добавить только две количества месяца например: 2 4 или оставить пустым',
     INCORRECT_EXPERATION_DATE_3 = 'нельзя указывать в месяц фильтра буквы ',

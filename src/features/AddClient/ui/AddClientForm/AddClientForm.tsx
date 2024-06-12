@@ -46,7 +46,6 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
     const expiration_date = useSelector(getAddClientMonth)
     const validateErrors = useSelector(getValidateAddClientData)
     const [errorWindow, setErrorWindow] = useState(false)
-
     useEffect(() => {
         if (expiration_date.some(item => item === '')) {
             dispatch(addClientActions.setMonthFilter(expiration_date.filter(item => item !== '')))
@@ -81,6 +80,7 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
     );
     
     const onLoginClick = useCallback(async () => {
+        setErrorWindow(true)
         const result = await dispatch(
             addClient({ address, name, phone, category_id, expiration_date }),
         );

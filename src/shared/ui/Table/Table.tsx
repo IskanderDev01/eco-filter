@@ -47,7 +47,6 @@ export const Table = memo((props: TableProps) => {
     const [isUpdateClientModal, setIsUpdateClientModal] = useState(false);
     const [userId, setUserId] = useState<number>(0);
     const formData = useSelector(getUserFormData);
-    console.log(userId)
     
     const formattedDate = useMemo(() => {
         const date = new Date(item?.created_at);

@@ -1,5 +1,6 @@
 import { ValidateAddClientError } from '../../types/CLientSchema'
 import { Users } from '../../types/users'
+
 function containsNoText(mass: any) {
     for (let i = 0; i < mass.length; i++) {
         if (typeof mass[i] === 'string' && /[a-zA-Z]/.test(mass[i])) {
@@ -39,7 +40,6 @@ export const validateAddClientData = (users?: Users): ValidateAddClientError[] =
         errors.push(ValidateAddClientError.INCORRECT_PHONE)
     }
     if(!containsNoText(expiration_date)) {
-        
         errors.push(ValidateAddClientError.INCORRECT_EXPERATION_DATE_3)
     }
     return errors;
