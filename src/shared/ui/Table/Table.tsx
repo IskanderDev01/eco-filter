@@ -141,9 +141,18 @@ export const Table = memo((props: TableProps) => {
                 <div className={cls.changed_at}>
                     {
                         days === 'today' || days === 'tomorrow' || days === 'expired'
+                        ? item?.filters[1] === undefined
                         ? <div className={cls.flex}>
                             {item?.filters[0]?.expiration_date + ' мес-'+ formatDate(item?.filters[0]?.changed_at)}
                         </div> 
+                        : <>
+                            <div className={cls.flex}>
+                                {item?.filters[0]?.expiration_date + ' мес-' + formatDate(item?.filters[0]?.changed_at)}
+                            </div>
+                            <div className={cls.flex}>
+                                {item?.filters[1]?.expiration_date + ' мес-' + formatDate(item?.filters[1]?.changed_at)}
+                            </div>
+                        </>
                         : item?.filters[1] === undefined
                         ? <div className={cls.flex}>
                             {item?.filters[0]?.expiration_date + ' мес-' + formatDate(item?.filters[0]?.changed_at)}
