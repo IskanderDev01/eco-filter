@@ -1,5 +1,5 @@
 import { Table } from 'shared/ui/Table/Table';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
