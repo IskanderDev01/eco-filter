@@ -126,12 +126,16 @@ const AddClientForm = memo(({ className, onClose }: AddClientFormProps) => {
                 <label htmlFor="mobile" className={cls.label}>
                     Мобильный номер
                 </label>
-                <Input
+                <div className={cls.mobile}>
+                    <span>+998</span>
+                    <Input
                     type="text"
                     id="mobile"
+                    placeholder='917777777'
                     className={cls.input}
                     onChange={onChangePhone}
                 />
+                </div>
                 <label htmlFor="filter" className={cls.label}>
                     Фильтр
                 </label>

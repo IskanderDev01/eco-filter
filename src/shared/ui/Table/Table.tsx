@@ -126,7 +126,7 @@ export const Table = memo((props: TableProps) => {
         >
             <div className={cls.tbody}>
                 <div>{item?.name}</div>
-                <div>{item?.phone}</div>
+                <div>+998{item?.phone}</div>
                 <div>{item?.address}</div>
                 <div>{formattedDate}</div>
                 <div>
@@ -199,7 +199,7 @@ export const Table = memo((props: TableProps) => {
                     </div>
                 }
                 <div className={cls.comment}>
-                    {item?.description ?? 'нету комментария'}
+                    {item?.description ?? ''}
                 </div>
                 <div className={cls.options}>
                     <div className={cls.column}>
