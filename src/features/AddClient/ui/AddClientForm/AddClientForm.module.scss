@@ -1,0 +1,126 @@
+@use 'src/app/styles/breakpoints';
+
+.AddClientForm {
+    font-family: Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    position: relative;
+    font-size: var(--font-size-s);
+    
+    .title {
+        font-size: var(--font-size-m);
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .close {
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+    }
+    
+    .error {
+        color: red;
+        margin-bottom: 5px;
+    }
+    .label {
+        padding: 0px 5px;
+        font-size: var(--font-size-s);
+    }
+
+    .flex {
+        display: flex;
+
+        div {
+            width: 100%;
+            padding: 0px 5px;
+            .input {
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+}
+
+.input {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.loginBtn {
+    width: 100%;
+    font-size: var(--font-size-xs);
+    color: var(--bs-white);
+    margin-top: 5px;
+    padding: 10px;
+    margin-left: auto;
+}
+.mobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    span {
+        padding-bottom: 10px;
+        padding-top: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+        border-radius: 5px;
+    }
+    div {
+        width: 100%;
+    }
+}
+.select {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: solid 0.5px #ABBED1;
+    outline: none;
+    color: var(--bs-dark);
+}
+
+@media (max-width: breakpoints.$xxl) {
+    .AddClientForm {
+        width: 400px;
+
+        .label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+    }
+    .input {
+        padding: 0px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+
+    .loginBtn {
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+}
+
+@media (max-width: breakpoints.$md) {
+    .AddClientForm {
+        width: 300px;
+        .closeIcon {
+            font-size: 16px;
+        }
+    }
+}
+
+@media (max-width: breakpoints.$sm) {
+    .AddClientForm {
+        width: 300px;
+        .title {
+            font-size: 18px;
+        }
+
+        .closeIcon {
+            font-size: 16px;
+        }
+    }
+}

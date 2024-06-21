@@ -1,0 +1,34 @@
+:root {
+    --bs-dark: #282828;
+    --bs-white: #FFFFFF;
+    --bs-gray: #717171;
+    --bs-light-gray: #d6d6d6;
+    --bs-red: #f41127;
+    --bs-danger: #f41127;
+    --bs-green: #17a00e;
+	--bs-teal: #20c997;
+    --bs-green-opacity: rgba(145, 255, 151, 0.8);
+    --bs-danger-opacity: rgba(255, 135, 135, 0.8);
+    --bs-yellow-opacity: rgba(252, 252, 176, 0.8);
+    --bs-light-blue: rgb(50, 132, 255);
+    --bs-blue: rgb(0, 82, 206);
+    --bs-ocean: rgb(224, 236, 255);
+    --bs-white-opacity: rgba(253, 253, 253, 80%);
+    --overlay-color: rgba(0 0 0 / 50%);
+    --skeleton-shadow: rgba(0 0 0 / 20%);
+    --bs-ocean-opacity: rgba(187, 229, 255, 60%);
+    --skeleton-color: #fff;
+
+    --font-family-main: Roboto, sans-serif;
+    --font-size-xs: 13px;
+    --font-size-s: 14px;
+    --font-size-m: 16px;
+    --font-line-m: 24px;
+    --font-size-l: 24px;
+    --font-line-l: 32px;
+
+    // Размеры
+    --navbar-height: 60px;
+
+    --modal-z-index: 100;
+}

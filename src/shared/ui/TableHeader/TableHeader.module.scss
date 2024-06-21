@@ -1,0 +1,38 @@
+@use 'src/app/styles/breakpoints';
+
+.TableHeader {
+    color: var(--bs-dark);
+    border-top: 1px solid var(--bs-light-gray);
+    background-color: var(--bs-white-opacity);
+    padding: 15px;
+}
+
+.tbody {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    div {
+        width: 25%;
+    }
+}
+
+.options {
+    display: flex;
+    justify-content: flex-end;
+}
+.pastDays {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+    span {
+        margin-right: 5px;
+    }
+}
+.comment {
+    display: flex;
+    justify-content: center;
+}

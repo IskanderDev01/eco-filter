@@ -1,0 +1,55 @@
+@import "reset";
+@import "variables/global";
+@import 'breakpoints.scss';
+
+.app {
+    font-family: Roboto, sans-serif;
+    min-height: 100vh;
+    background-color: var(--bs-ocean);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content-page {
+    display: flex;
+    padding-top: 80px;
+    position: relative;
+}
+
+.container {
+    width: 1350px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0px 12px;
+    position: relative;
+}
+
+@media (max-width: 1400px) {
+    .container {
+        width: 1200px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 1000px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        width: 780px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 650px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 400px;
+    }
+}

@@ -1,0 +1,30 @@
+@use 'src/app/styles/breakpoints';
+
+.filters {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    div {
+        margin: 0px 10px;
+        background-color: var(--bs-white);
+        height: 60px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: breakpoints.$sm) {
+    .filters {
+        div {
+            margin: 0px 5px;
+            height: 40px;
+            padding: 0px 10px;
+        }
+    }
+}
